@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import * as Font from "expo-font";
 import { Text, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Asset, useAssets } from "expo-asset";
+import { Asset } from "expo-asset";
 
 const loadFont = (fonts) => fonts.map((font) => Font.loadAsync(font));
 
@@ -17,8 +17,6 @@ const loadImages = (images) =>
   });
 
 export default function App() {
-  const [asset] = useAssets([require("./Img/my-face.png")]);
-  const [loaded] = Font.useFonts(Ionicons.font);
   const [ready, setReady] = useState(false);
   const onFinish = () => setReady(true);
   const startLoading = async () => {
@@ -27,7 +25,7 @@ export default function App() {
       require("./Img/my-face.png"),
       "https://reactnative.dev/img/oss_logo.png",
     ]);
-    await Promise.all([...fonts, ...images]);
+    await Promise.all([...fonts]);
 
     /*  
   Asset => 로컬에서 img 불러올 때 사용 (주로 Asset 선호)
