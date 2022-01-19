@@ -6,5 +6,4 @@ const Tv = () => (
     <Text>Tv</Text>
   </View>
 );
-
 export default Tv;

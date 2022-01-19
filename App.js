@@ -1,13 +1,17 @@
 import AppLoading from "expo-app-loading";
 import React, { useState } from "react";
 import * as Font from "expo-font";
-import { Text, Image, useColorScheme } from "react-native";
+import { Image, useColorScheme } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Asset } from "expo-asset";
 import { NavigationContainer } from "@react-navigation/native";
 import Tabs from "./navigation/Tabs";
+import Stack from "./navigation/Stack";
+import Root from "./navigation/Root";
+import { ThemeProvider } from "styled-components/native";
+import { darkTheme, lightTheme } from "./styled";
 
-const loadFont = (fonts) => fonts.map((font) => Font.loadAsync(font));
+const loadFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
 
 const loadImages = (images) =>
   images.map((image) => {
@@ -22,20 +26,18 @@ export default function App() {
   const [ready, setReady] = useState(false);
   const onFinish = () => setReady(true);
   const startLoading = async () => {
-    const fonts = loadFont([Ionicons.font]);
-    const images = loadImages([
-      require("./Img/my-face.png"),
-      "https://reactnative.dev/img/oss_logo.png",
-    ]);
+    const fonts = loadFonts([Ionicons.font]);
     await Promise.all([...fonts]);
+  };
 
-    /*  
+  /*  
   Asset => 로컬에서 img 불러올 때 사용 (주로 Asset 선호)
   await Asset.loadAsync(require("./Img/my-face.png"));
   prefetch => server에서 img 불러올 때 사용 
   await Image.prefetch("https://reactnative.dev/img/oss_logo.png"); 
   */
-  };
+
+  const isDark = useColorScheme() === "dark";
   if (!ready) {
     return (
       <AppLoading
@@ -46,8 +48,10 @@ export default function App() {
     );
   }
   return (
-    <NavigationContainer>
-      <Tabs />
-    </NavigationContainer>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+      <NavigationContainer>
+        <Root />
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }

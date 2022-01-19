@@ -1,12 +1,11 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Movies from "../screens/Movies.tsx";
+import Movies from "../screens/Movies";
 import Tv from "../screens/Tv";
 import Search from "../screens/Search";
 import { useColorScheme } from "react-native";
-import { BLACK_COLOR, DARK_GREY, LIGHT_GREY, YELLOW_COLOR } from "../color";
+import { BLACK_COLOR, DARK_GREY, LIGHT_GREY, YELLOW_COLOR } from "../colors";
 import { Ionicons } from "@expo/vector-icons";
-import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +14,9 @@ const Tabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: { backgroundColor: isDark ? BLACK_COLOR : "white" },
+        tabBarStyle: {
+          backgroundColor: isDark ? BLACK_COLOR : "white",
+        },
         tabBarActiveTintColor: isDark ? YELLOW_COLOR : BLACK_COLOR,
         tabBarInactiveTintColor: isDark ? DARK_GREY : LIGHT_GREY,
         headerStyle: {
@@ -45,7 +46,7 @@ const Tabs = () => {
         component={Tv}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name={"tv-outline"} color={color} size={size} />
+            <Ionicons name="tv-outline" color={color} size={size} />
           ),
         }}
       />
@@ -61,4 +62,5 @@ const Tabs = () => {
     </Tab.Navigator>
   );
 };
+
 export default Tabs;
