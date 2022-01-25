@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
+import { Movie } from "../api";
 import Poster from "./Poster";
 import Votes from "./Votes";
 
@@ -50,13 +51,14 @@ const HMedia: React.FC<HMediaProps> = ({
   overview,
   releaseDate,
   voteAverage,
+  fullData,
 }) => {
   const navigation = useNavigation();
   const goToDetail = () => {
     navigation.navigate("Stack", {
       screen: "Detail",
       params: {
-        originalTitle,
+        ...fullData,
       },
     });
   };
